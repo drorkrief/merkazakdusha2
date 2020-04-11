@@ -1,0 +1,13 @@
+POST http://localhost:3000/login 
+// --- this is authentication 
+Content-Type: application/json
+
+{
+"email" : "1@gmail.com" , "password" : "123"
+}
+
+### 
+GET http://localhost:3000/login 
+// --- this is authorization 
+// --- TODO CHANGE : put after Bearer the fresh token from login 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiJuYXRhbmtyYXNuZXlAZ21haWwuY29tIiwiZXhwIjoxNTgwMTI5MjI1LjUsImlhdCI6MTU4MDEyODAyNX0.9ijs2OCOpvO4qFoK3ZJL_UNl7ITZ0k_LGAm05H6DXE4

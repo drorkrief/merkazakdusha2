@@ -1,0 +1,198 @@
+.App {
+  text-align: right;
+  /* margin-bottom: 30px; */
+}
+body {
+  /* text-align: right; */
+  padding-bottom: 35px;
+}
+.continueProcess{
+  margin-top: 30px;
+  border: gray 2px solid;
+  border-radius: 20px;
+}
+.jumbotron {
+  background-color: inherit !important;
+  /* border: 1px brown solid; */
+}
+.formLogin input{
+  text-align: center;
+}
+.formLogin form{
+  display: grid;
+}
+.formLogin {
+  position: absolute;
+  top: 40px;
+  
+  text-align: center;
+  right: 20%;
+  background-color: rgba(190, 190, 190, 0.856);
+  border-radius: 20px;
+  padding: 10px;
+  width: 60%;
+  z-index: 100;
+  border: rgba(128, 113, 77, 0.726) 3px solid;
+}
+.cartbg {
+  background-color: #eee0b9;
+  /* background-image: url("./abstract-antique-backdrop-background-129731.jpg"); */
+  background-repeat: repeat;
+  background-size: 100% 1000px;
+  opacity: 0.4;
+  position: fixed;
+  width: 100%;
+  z-index: -1;
+  height: 100%;
+}
+.categorylist .card:hover {
+  border: olive 1px solid;
+  cursor: pointer;
+}
+.icon2 {
+  height: 25px;
+  border: 1px blue solid;
+  border-radius: 5px;
+}
+.nav-item a {
+  padding: 10px;
+  display: inline-block;
+  line-height: 20px;
+}
+.linksBar a {
+  padding: 10px;
+  text-decoration: none;
+  color: #d4c88a;
+  font-family: "Secular One", sans-serif;
+}
+.secBar {
+  display: inline-block;
+}
+.secBar a {
+  color: black;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 8px;
+  /* transition: 1s; */
+  border-radius: 20px;
+}
+.textFeed p {
+  text-align: justify;
+  direction: rtl;
+}
+.secBar a:hover {
+  text-decoration: none;
+  color: black;
+  padding: 7px;
+  border: black 1px solid;
+  border-radius: 20px;
+}
+.secBar div {
+  display: inline-block;
+  margin: 20px;
+}
+.header3 > img {
+  height: 140px;
+  width: 100%;
+  position: relative;
+  border-bottom: black solid 1px;
+}
+.header3 {
+  position: fixed;
+  z-index: 3;
+}
+select option:nth-child(2)::before {
+  content: "- Remember this";
+  background-color: yellow;
+  color: red;
+  font-weight: bold;
+}
+.checkOutInput {
+  border-radius: 10px;
+  padding-right: 9px;
+}
+.checkOutInput:focus {
+  outline: none;
+  box-shadow: 0px 0px 3px #0066ff;
+}
+
+.header2 {
+  position: absolute;
+  /* background-color: black; */
+  /* opacity: 0.2; */
+  background: rgba(0, 0, 0, 0.24);
+
+  /* border-bottom: black solid 1px; */
+  height: 140px;
+  width: 100%;
+  top: 0px;
+  height: 35px;
+  /* background-color: lightgoldenrodyellow; */
+}
+.header1 {
+  width: 100%;
+  top: 35px;
+
+  position: absolute;
+  padding: 15px;
+}
+/* .productImg{
+  height: 30px;
+  transition:  100ms;
+
+} */
+
+.navbarboot {
+  direction: rtl;
+}
+.prdcts {
+  display: inline-block;
+  margin: 10px;
+  border: gray 1px solid;
+}
+.closebtn {
+  color: azure;
+  cursor: pointer;
+}
+.card-body {
+  width: inherit;
+  height: 38%;
+  position: absolute;
+  bottom: 0;
+}
+/* .card img{
+  height: 50%;
+  width: 70%;
+} */
+/* .prdcts img{
+  height: 100px;
+}
+.productImg:hover{
+  height: 130px;
+} */
+.linksBar {
+  background-color: black;
+  /* direction: rtl; */
+}
+.icon1 {
+  height: 70px;
+  border-radius: 20px;
+  border: 1px #c3b880 solid;
+}
+.icon1:hover {
+  opacity: 0.6;
+}
+.nav-link span[role="button"] {
+  padding: 15px;
+  display: inline-block;
+  line-height: 20px;
+}
+.button1 {
+  cursor: pointer;
+}
+.iconLink {
+  margin: 0;
+}
+.rlt {
+  direction: rtl;
+}

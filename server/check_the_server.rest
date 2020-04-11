@@ -1,0 +1,46 @@
+POST  http://localhost:3000/contact
+Content-Type: application/json
+
+{
+    "email" : "dror"
+}
+
+###
+
+GET https://jsonplaceholder.typicode.com/posts
+
+###
+
+POST http://localhost:3000/order
+Content-Type: application/json
+
+{
+   "user" : {
+    "name" : "ddd",
+    "email" : "dd@ss.ss",
+     "phone" : 088888888,
+     "address" : 767676,
+     "note" : 676761111
+   } ,
+   "order" : {
+     "delivery" : "regularDelivery",
+     "items": [ 
+         {"id": "5e1dbe766539052f10bac6cc", "quantity": 2} , 
+         {"id": "5e1dbf0a6539052f10bac6cd", "quantity": 1}],
+     "sumCartAndDelivery" : 117,
+     "user" : {
+       "name" : "ddd",
+       "email" : "dd@ss.ss",
+       "phone" : 088888888,
+       "address" : 767676,
+       "note": 676761111
+     }
+   }
+ }
+###
+GET http://localhost:3000/categories
+
+
+
+
+
