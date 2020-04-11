@@ -17,7 +17,7 @@ const uploadDirectory = "./client/public/images1/";
 const upload = multer({ dest: uploadDirectory });
 
 app.use(express.json()); // to support JSON-encoded bodies
-app.use(express.urlencoded());
+// app.use(express.urlencoded());
 
 app.get("/api", (req, res) => {
   res.send({ res: "result from server 123" });
