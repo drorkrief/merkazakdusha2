@@ -181,7 +181,7 @@ axios.post('/login', {
         {this.state.sidebarOpen ? (
           <div className="sidenav width250">
             <span
-              href="javascript:void(0)"
+              // href="javascript:void(0)"
               className="closebtn"
               onClick={() => {
                 this.setState({ sidebarOpen: false });
@@ -206,7 +206,9 @@ axios.post('/login', {
           </div>
         ) : (
           <div className="sidenav">
-            <span href="javascript:void(0)" className="closebtn width0">
+            <span 
+            // href="javascript:void(0)" 
+            className="closebtn width0">
               &times;
             </span>
           </div>

@@ -1,6 +1,8 @@
 const path = require("path");
 
 const handleProduction = (express,app) => {
+  console.log(1234567);
+  
   if (process.env.NODE_ENV === "production") {
     console.log("production mode");
     const buildPath = path.join(__dirname, "client", "build");
