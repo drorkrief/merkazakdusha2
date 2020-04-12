@@ -1,12 +1,18 @@
-const my_db = "my_kdusha";
+console.log("app is loading");
+const routeHelper = require("./routeHelper");
+
 const express = require("express");
 const app = express();
+
+const utils2 = require('./production_utils')
+
+const my_db = "my_kdusha";
 const MongoClient = require("mongodb").MongoClient;
 const url = `mongodb://localhost:27017/my_kdusha`;
-const ordersHandle = require("./ordersHandle");
+// const ordersHandle = require("./ordersHandle");
 const nodemailer = require("nodemailer");
 let numOrder = 1;
-const utils2 = require('./production_utils')
+
 
 let userId;
 const jwtVerifier = require('express-jwt')
@@ -20,9 +26,7 @@ app.use(express.json()); // to support JSON-encoded bodies
 // app.use(express.urlencoded());
 // app.use(express.urlencoded({ extended: true }))
 
-app.get("/api", (req, res) => {
-  res.send({ res: "result from server 123" });
-});
+
 
 // ----- send email to manager when order done
 
@@ -62,100 +66,26 @@ function sendEmailToManege(orderData) {
   });
 }
 
-function sendOrder() {
-  dbo.collection("orders").insertOne(newOrder, function(err, res) {
-    if (err) {
-      return res.sendStatus(500);
-    }
-    console.log("1 document inserted");
-    return res.status(200).send("complete");
-  });
-}
+
 //-----add Category by admin
 app.post("/addCategory",jwtVerifier({secret:utils.secret}), (req, res) => {
-  console.log("/api is accessed");
-  MongoClient.connect(url, function(err, db) {
-    if (err) throw err;
-    var dbo = db.db(my_db);
-    var myobj = { name: req.body.he, ename: req.body.en };
-    dbo.collection("categories").insertOne(myobj, function(err, res) {
-      if (err) {
-        return res.sendStatus(500);
-      }
-      console.log("1 document inserted");
-    });
-  });
-  res.status(201).send(req.body);
+  routeHelper.addCategory(req, res);
 });
 //-----upload item
 app.post("/insertNewItem", upload.single("theImage"), (req, res) => {
-  console.log("/api is accessed");
-  MongoClient.connect(url, function(err, db) {
-    if (err) throw err;
-    var dbo = db.db(my_db);
-    var myobj = {
-      name: req.body.itemName,
-      brand: req.body.brand,
-      price: Number(req.body.price),
-      imgurl: `./images1/${req.file.filename}`,
-      category: req.body.currentCategory,
-      date: new Date(),
-      description: req.body.description
-    };
-    dbo.collection("products").insertOne(myobj, function(err, res) {
-      if (err) {
-        return res.sendStatus(500);
-      }
-      console.log("1 document inserted");
-    });
-  });
-  res.status(201).send({ body: req.body, file: req.file });
+  routeHelper.insertNewItem(req, res);
+
+  
 });
 //----categories
 app.get("/categories", (req, res) => {
-  MongoClient.connect(
-    url,
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    },
-    function(err, db) {
-      if (err) throw err;
-      var dbo = db.db(my_db);
-      //Find all documents in the customers collection:
-      dbo
-        .collection("categories")
-        .find({})
-        .toArray(function(err, result) {
-          if (err) throw err;
-          res.send({ res: result });
-          db.close();
-        });
-    }
-  );
+  routeHelper.getCategories(req, res);
+  
 });
 //################## query query query query query query
 app.get("/products", (req, res) => {
-  MongoClient.connect(
-    url,
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    },
-    function(err, db) {
-      if (err) throw err;
-      var dbo = db.db(my_db);
-      //Find all documents in the customers collection:
-      dbo
-        .collection("products")
-        .find({ category: req.query.category })
-        .toArray(function(err, result) {
-          if (err) throw err;
-          res.send({ res: result });
-          db.close();
-        });
-    }
-  );
+  routeHelper.products(req, res);
+
 });
 
 // ------------------post order
@@ -188,7 +118,7 @@ app.post("/order", function(req, res) {
           var newvalues = {
             $set: { phone: req.body.user.phone, address: req.body.user.address }
           };
-          console.log(result._id, "id id id id id  ");
+          console.log(result._id);
           userId = result._id;
           dbo
             .collection("users")
