@@ -134,7 +134,7 @@ select option:nth-child(2)::before {
   top: 35px;
 
   position: absolute;
-  padding: 15px;
+  padding: 15px 0px 0px 0px;
 }
 /* .productImg{
   height: 30px;

@@ -6,7 +6,22 @@
     display: inline-block;
     text-align: center;
 }
+@media (max-width:655px) {
+  .secBar a{
+    font-size: 3vw;
+    padding: 4px;
+  }
 
+.secBar div{
+  margin: 0;
+}
+.header1 img{
+  height: 45px;
+}
+.header1{
+  padding: 25px 13px 0px 0px;
+}
+}
 
 .button1 {
   display: inline-block;
