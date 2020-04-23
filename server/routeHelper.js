@@ -1,5 +1,5 @@
 const my_db = "my_kdusha";
-const uploadDirectory = "./client/public/images1/";
+const uploadDirectory = "uploads/";
 const MongoClient = require("mongodb").MongoClient;
 const url = "mongodb://localhost:27017/my_kdusha";
 // const ordersHandle = require("./ordersHandle");
