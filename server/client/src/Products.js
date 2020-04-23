@@ -119,7 +119,8 @@ class Products extends Component {
             {console.log(this.state[it.imgurl])
             }
             {this.state[it.imgurl] ? "":this.getImageFromServer(it.imgurl)}
-            <Card.Img variant="top" src={this.state[it.imgurl]} />
+            {/* <Card.Img variant="top" src={this.state[it.imgurl]} /> */}
+            <img style={{height:"50%"}} alt={it.name} src={this.state[it.imgurl]}/>
             <Card.Body variant="bottom">
               <Card.Title alt={it.name} key={index}>
                 {it.name}
