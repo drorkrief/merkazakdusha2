@@ -12,17 +12,21 @@ class Products extends Component {
   cat = "";
   cartList = "";
   productsList = "";
-  getImageFromServer = (item) => {
+  showImg = (img) => {
+    return img
+
+  }
+  getImageFromServer = (itemToSave) => {
     axios
-      .get(`/images/${item}`, { responseType: "blob" })
+      .get(`/images/${itemToSave}`, { responseType: "blob" })
       .then(res => {
         if (res.status === 200) {
           const reader = new FileReader();
           reader.readAsDataURL(res.data);
-          const _this = this;
+          const _this1 = this;
           reader.onload = function(){
               const imageDataUrl = reader.result;
-              _this.setState({[item]:imageDataUrl});
+              _this1.setState({[itemToSave]:imageDataUrl});
           }
 
         } else {
@@ -120,7 +124,8 @@ class Products extends Component {
             }
             {this.state[it.imgurl] ? "":this.getImageFromServer(it.imgurl)}
             {/* <Card.Img variant="top" src={this.state[it.imgurl]} /> */}
-            <img style={{height:"50%"}} alt={it.name} src={this.state[it.imgurl]}/>
+            {this.state[it.imgurl]?
+            <img style={{height:"50%"}} alt={it.name} src={this.showImg( this.state[it.imgurl]) }/>:"no img"}
             <Card.Body variant="bottom">
               <Card.Title alt={it.name} key={index}>
                 {it.name}
