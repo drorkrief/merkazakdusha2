@@ -14,26 +14,31 @@ class Product extends Component {
   }
  
   render() {
+    let style={
+      width:"70%"
+     }
     return (
-      <div>
+      <div style={{textAlign:"center"}}>
         <Jumbotron>
-          <h1 className="h3">
+          <h1 className="h3" >
             {this.props.currentItem ? this.props.currentItem.name : ""}
           </h1>
           <img
+            style={style}
             alt={this.props.currentItem ? this.props.currentItem.name : ""}
             variant="top"
             src={
-              this.props.currentItem ? "." + this.props.currentItem.imgurl : ""
+              this.props.currentItem ?  this.props.currentItem.currentImg : ""
             }
           />
           <h3 className="h5">
-            {this.props.currentItem ? this.props.currentItem.description : ""}
+            {this.props.currentItem ? this.props.currentItem.description : ""} :תיאור 
           </h3>
           <h3 className="h5">
             {this.props.currentItem ? this.props.currentItem.price : ""} :מחיר
           </h3>
           <Button
+                    style={{width:"15vw", minWidth:"100px"}}
             onClick={e => {
               if(this.props.currentItem){
 
@@ -46,6 +51,7 @@ class Product extends Component {
             הוסף לסל
           </Button>
           <Button
+          style={{marginLeft:"3vw" , width:"15vw", minWidth:"100px"}}
             onClick={e => {
               this.goBack();
               e.stopPropagation();

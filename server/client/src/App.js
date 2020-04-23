@@ -84,7 +84,8 @@ reduceQuantity = item => {
     this.setState({ cartList: [] });
 
   }
-  currentItem = item => {
+  currentItem = (item,currentImg) => {
+    item.currentImg=currentImg;
     this.setState({ currentItem: item });
   };
   getCategories = () => {

@@ -49,6 +49,9 @@ body {
   border: olive 1px solid;
   cursor: pointer;
 }
+.categorylist{
+  float: right !important;
+}
 .icon2 {
   height: 25px;
   border: 1px blue solid;

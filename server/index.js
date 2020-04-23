@@ -66,6 +66,18 @@ function sendEmailToManege(orderData) {
   });
 }
 
+//---- productImg  get name of category from client 
+//----             search the first product in the db and return the image to client
+app.get("/productImg/:categoryToFind", (req, res) => {  
+  routeHelper.productImg(req, res, req.params.categoryToFind);
+});
+
+//  =====  "images" get img by name
+app.get("/images/:imgToSend", (req, res) => {  
+  console.log(req.params.imgToSend,"req.params.imgToSend----");
+  routeHelper.sendImg(req, res, req.params.imgToSend)
+  // routeHelper.productImg(req, res, req.params.imgToSend);
+});
 
 //-----add Category by admin
 app.post("/addCategory",jwtVerifier({secret:utils.secret}), (req, res) => {
@@ -251,7 +263,6 @@ app.post("/login", (req, res) => {
         });
       }
     );
-    // console.log("server =====", req.body.email, req.body.password);
   } else {
     return res.sendStatus(404);
   }

@@ -6,24 +6,49 @@ import { Redirect } from "react-router-dom";
 class CategoryList extends Component {
     state={image:"",  redirect: true}
     theCategory= this.props.category? this.props.category:"";
-    getImg = () => {
-        // console.log(`/img/?category=${this.theCategory.ename}`);
-        
-        axios
-          .get(`/img/?category=${this.theCategory.ename}`)
-          .then(res => {
-              // console.log(res.data.res[0].imgurl);
-              this.setState({image: res.data.res[0].imgurl});
-            // console.log(res.data.res);
-            // this.setState({ categories: res.data.res });
-            // console.log("categories=",res.data.res);
-            
-          })
-          .catch(err => console.log(err));
-      };
-    componentDidMount(){
-        this.getImg();
+    getProductImg = () => { 
+      console.log(this.props.category.ename,"this.props.category");
+           
+      axios
+        .get(`/productImg/${this.props.category.ename}`, { responseType: "blob" })
+        .then(res => {
+          if (res.status === 200) {
+            const reader = new FileReader();
+            reader.readAsDataURL(res.data);
+            const _this = this;
+            reader.onload = function(){
+                const imageDataUrl = reader.result;
+                _this.setState({img:imageDataUrl});
+            }
+  
+          } else {
+            console.log(`error status code : ${res.status}`);
+          }
+          // console.log(this.state.products);
+        })
+        .catch(err => console.log(err));
+    };
+    componentWillMount() {
+      this.getProductImg();
     }
+    // getImg = () => {
+    //     // console.log(`/img/?category=${this.theCategory.ename}`);
+        
+    //     axios
+    //       .get(`/img/?category=${this.theCategory.ename}`)
+    //       .then(res => {
+    //           // console.log(res.data.res[0].imgurl);
+    //           this.setState({image: res.data.res[0].imgurl});
+    //         // console.log(res.data.res);
+    //         // this.setState({ categories: res.data.res });
+    //         // console.log("categories=",res.data.res);
+            
+    //       })
+    //       .catch(err => console.log(err));
+    //   };
+    // componentDidMount(){
+    //     this.getImg();
+    // }
     render() {
         let direct = this.state.redirect ? (
             ""
@@ -39,7 +64,7 @@ class CategoryList extends Component {
               () => {this.setState({ redirect: !this.state.redirect })
               }
             }>
-                {this.state.image? <Card.Img height='150rem'  variant="top" src={this.state.image} />:<div style={{margin:"auto"}} className="spinner-border" role="status">
+                {this.state.img? <Card.Img height='150rem'  variant="top" src={this.state.img} />:<div style={{margin:"auto"}} className="spinner-border" role="status">
   <span className="sr-only">Loading...</span>
 </div>}
   

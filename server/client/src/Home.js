@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+// import axios from "axios";
 import Carousel from "react-bootstrap/Carousel";
 import CategoryList from "./CategoryList";
 
@@ -8,20 +8,7 @@ class Home extends Component {
   state = { data: "", pic: "", products: [], category: [] };
   url = "/pic";
   
-  getProducts = () => {
-    // console.log("clicked");
-    axios
-      .get("/products")
-      .then(res => {
-        // console.log(res.data.res);
-        this.setState({ products: res.data.res });
-        // console.log(this.state.products);
-      })
-      .catch(err => console.log(err));
-  };
-  componentWillMount() {
-    this.getProducts();
-  }
+  
   render() {
     return (
       <div style={{paddingTop:"20px"}}>
@@ -67,7 +54,7 @@ class Home extends Component {
           </Carousel.Item>
         </Carousel>
         <div>
-        {this.props.category? this.props.category.map((it, index) => (<CategoryList  key={index} category={it}/>)):""}
+        {this.props.category? this.props.category.map((it, index) => (<CategoryList  key={index} category={it} />)):""}
         </div>
         
       </div>

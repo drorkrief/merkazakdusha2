@@ -12,7 +12,25 @@ class Products extends Component {
   cat = "";
   cartList = "";
   productsList = "";
+  getImageFromServer = (item) => {
+    axios
+      .get(`/images/${item}`, { responseType: "blob" })
+      .then(res => {
+        if (res.status === 200) {
+          const reader = new FileReader();
+          reader.readAsDataURL(res.data);
+          const _this = this;
+          reader.onload = function(){
+              const imageDataUrl = reader.result;
+              _this.setState({[item]:imageDataUrl});
+          }
 
+        } else {
+          console.log(`error status code : ${res.status}`);
+        }
+      })
+      .catch(err => console.log(err));
+  };
   getCategories = () => {
     axios
       .get("/categories")
@@ -95,10 +113,13 @@ class Products extends Component {
             // style={linkStyle} onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover}
             onClick={() => {
               this.setState({ redirect: !this.state.redirect });
-              this.props.currentItem(it);
+              this.props.currentItem(it, this.state[it.imgurl]);
             }}
           >
-            <Card.Img variant="top" src={"." + it.imgurl} />
+            {console.log(this.state[it.imgurl])
+            }
+            {this.state[it.imgurl] ? "":this.getImageFromServer(it.imgurl)}
+            <Card.Img variant="top" src={this.state[it.imgurl]} />
             <Card.Body variant="bottom">
               <Card.Title alt={it.name} key={index}>
                 {it.name}
@@ -111,6 +132,7 @@ class Products extends Component {
                   <Button
                     onClick={e => {
                       // console.log(it._id);
+                      it.currentImg=this.state[it.imgurl];
                       this.props.addToCart(it);
                       // let tempArry=this.state.products;
                       // tempArry[index].onCart=true;
