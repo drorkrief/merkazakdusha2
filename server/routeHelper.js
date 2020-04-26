@@ -12,7 +12,7 @@ function sendImg(req, res, imgToSend){
 const fullPathFileName = path.join(
   __dirname,
   uploadDirectory,
-  req.params.imgToSend
+  imgToSend
 );
 
 res.sendFile(fullPathFileName);

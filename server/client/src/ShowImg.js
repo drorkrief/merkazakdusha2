@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios";
-
+let bbbb;
 class ShowImg extends Component {
     state={img:""}
     getImageFromServer = (item) => {
@@ -16,6 +16,7 @@ class ShowImg extends Component {
               reader.onload = function(){
                   const imageDataUrl = reader.result;
                   _this.setState({img:imageDataUrl});
+                  bbbb =imageDataUrl;
               }
     
             } else {
@@ -30,7 +31,7 @@ class ShowImg extends Component {
         return (
             <div>
             {this.state.img?"": this.getImageFromServer(this.props.imgName)}
-            {this.state.img?<img style={{height:"10%"}} src={this.state.img}/> :""}
+            {bbbb?<img style={{height:"10%"}} src={bbbb}/> :""}
             </div>
         );
     }
