@@ -6,45 +6,55 @@ import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { Redirect, withRouter } from "react-router-dom";
-
+let imageDataUrl;
 class Products extends Component {
   state = { it: [], cyrrentCtgry: "", redirect: true, products: undefined };
   cat = "";
   cartList = "";
   productsList = "";
   showImg = (img) => {
-    return img
-
-  }
-  getImageFromServer = (itemToSave) => {
-    axios
-      .get(`/images/${itemToSave}`, { responseType: "blob" })
-      .then(res => {
-        if (res.status === 200) {
-          const reader = new FileReader();
-          reader.readAsDataURL(res.data);
-          const _this1 = this;
-          reader.onload = function(){
-              const imageDataUrl = reader.result;
-              _this1.setState({[itemToSave]:imageDataUrl});
+    return img;
+  };
+  getImageFromServer = (itemToSave, itemOnIndex) => {
+    if (this.state.products[itemOnIndex].imgFile){
+      console.log("is on the list");
+      
+    }
+    else{
+      axios
+        .get(`/images/${itemToSave}`, { responseType: "blob" })
+        .then((res) => {
+          if (res.status === 200) {
+            const reader = new FileReader();
+            reader.readAsDataURL(res.data);
+            // const _this1 = this;
+            reader.onload = function () {
+              imageDataUrl = reader.result;
+              // _this1.setState({ [itemToSave]: imageDataUrl });
+            };
+            this.state.products[itemOnIndex].imgFile = imageDataUrl;
+            this.forceUpdate();
+          } else {
+            console.log(`error status code : ${res.status}`);
           }
+        })
+        .catch((err) => console.log(err));
+      console.log(
+        itemOnIndex,
+        "itemOnIndex ",
+        <br />,
+        this.state.products[itemOnIndex]
+      );
 
-        } else {
-          console.log(`error status code : ${res.status}`);
-        }
-      })
-      .catch(err => console.log(err));
+    }
   };
   getCategories = () => {
     axios
       .get("/categories")
-      .then(res => {
-        
+      .then((res) => {
         this.setState({ categories: res.data.res });
-        
       })
-      .catch(err => console.log(err));
-    
+      .catch((err) => console.log(err));
   };
   componentWillMount() {
     this.getCategories();
@@ -56,39 +66,35 @@ class Products extends Component {
       this.setState({ cyrrentCtgry: this.props.category });
     }
   }
-  getProducts = ctgry => {
+  getProducts = (ctgry) => {
     axios
       .get(`/products/?category=${ctgry}`)
-      .then(res => {
-        
+      .then((res) => {
         this.setState({ products: res.data.res });
-        
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
 
   render() {
     let style2 = {
         width: "15rem",
-        height: "23rem"
+        height: "23rem",
       },
       direct = this.state.redirect ? (
         ""
       ) : (
         <Redirect
           to={{
-            pathname: "/Product"
+            pathname: "/Product",
           }}
         />
       );
-    
 
     if (this.state.categories) {
       this.cat = this.state.categories.map((it, index) => (
         <Button
           value={it.ename}
           onClick={() => {
-           
             this.props.history.replace("/Products/" + it.ename);
           }}
           className="btnCateg"
@@ -104,9 +110,9 @@ class Products extends Component {
         paddingTop: "10px",
         paddingRight: "10px",
         float: "right",
-        
+
         height: "26rem",
-        cursor: "pointer"
+        cursor: "pointer",
       };
       this.productsList = this.state.products.map((it, index) => (
         <div key={index} style={style1}>
@@ -120,12 +126,19 @@ class Products extends Component {
               this.props.currentItem(it, this.state[it.imgurl]);
             }}
           >
-            {console.log(this.state[it.imgurl])
-            }
-            {this.state[it.imgurl] ? "":this.getImageFromServer(it.imgurl)}
+            {/* {console.log(this.state[it.imgurl])} */}
+            {
+               this.getImageFromServer(it.imgurl, index)}
             {/* <Card.Img variant="top" src={this.state[it.imgurl]} /> */}
-            {this.state[it.imgurl]?
-            <img style={{height:"50%"}} alt={it.name} src={this.showImg( this.state[it.imgurl]) }/>:"no img"}
+            {this.state.products[index].imgFile ? (
+              <img
+                style={{ height: "50%" }}
+                alt={it.name}
+                src={this.showImg(it.imgFile)}
+              />
+            ) : (
+              "no img"
+            )}
             <Card.Body variant="bottom">
               <Card.Title alt={it.name} key={index}>
                 {it.name}
@@ -136,9 +149,9 @@ class Products extends Component {
               <Row style={{ bottom: 10, position: "absolute" }}>
                 <Col>
                   <Button
-                    onClick={e => {
+                    onClick={(e) => {
                       // console.log(it._id);
-                      it.currentImg=this.state[it.imgurl];
+                      it.currentImg = this.state[it.imgurl];
                       this.props.addToCart(it);
                       // let tempArry=this.state.products;
                       // tempArry[index].onCart=true;
@@ -190,8 +203,6 @@ class Products extends Component {
 
     return (
       <div>
-                
-
         {direct}
         <ButtonGroup aria-label="Basic example">{this.cat}</ButtonGroup>
         <div>{this.productsList}</div>
