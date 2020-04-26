@@ -6,33 +6,13 @@ import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { Redirect, withRouter } from "react-router-dom";
-
+import ShowImg from "./ShowImg"
 class Products extends Component {
   state = { it: [], cyrrentCtgry: "", redirect: true, products: undefined };
   cat = "";
   cartList = "";
   productsList = "";
-  getImageFromServer = (item) => {
-    console.log(item, "===item");
-    
-    axios
-      .get(`/images/${item}`, { responseType: "blob" })
-      .then(res => {
-        if (res.status === 200) {
-          const reader = new FileReader();
-          reader.readAsDataURL(res.data);
-          const _this = this;
-          reader.onload = function(){
-              const imageDataUrl = reader.result;
-              _this.setState({ttt:imageDataUrl});
-          }
-
-        } else {
-          console.log(`error status code : ${res.status}`);
-        }
-      })
-      .catch(err => console.log(err));
-  };
+  
   getCategories = () => {
     axios
       .get("/categories")
@@ -120,8 +100,9 @@ class Products extends Component {
           >
             {console.log(this.state.ttt)
             }
-            {this.state.ttt ? "":this.getImageFromServer(it.imgurl)}
-            <Card.Img variant="top" src={this.state.ttt} />
+            
+            {/* <Card.Img variant="top" src={this.state.ttt} /> */}
+            <ShowImg imgName={it.imgurl}/>
             <Card.Body variant="bottom">
               <Card.Title alt={it.name} key={index}>
                 {it.name}
