@@ -13,6 +13,8 @@ class Products extends Component {
   cartList = "";
   productsList = "";
   getImageFromServer = (item) => {
+    console.log(item, "===item");
+    
     axios
       .get(`/images/${item}`, { responseType: "blob" })
       .then(res => {
@@ -116,7 +118,7 @@ class Products extends Component {
               this.props.currentItem(it, this.state[it.imgurl]);
             }}
           >
-            {console.log(this.state[it.imgurl])
+            {console.log(this.state.ttt)
             }
             {this.state.ttt ? "":this.getImageFromServer(it.imgurl)}
             <Card.Img variant="top" src={this.state.ttt} />
