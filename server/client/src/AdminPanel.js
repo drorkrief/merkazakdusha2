@@ -59,8 +59,6 @@ class AdminPanel extends Component {
         {/* <img alt="ddd" src="./images1/5a7414361562279c1547d17165c4ca8e"/> */}
         <h1>ניהול האתר</h1> 
         <AddCategory key1={this.props.key1}/>
-        
-        
         <h3>הוספת מוצר</h3>
         {this.state.newFileName ? (
           <div className="continueProcess">
