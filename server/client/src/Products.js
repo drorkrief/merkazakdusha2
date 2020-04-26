@@ -22,7 +22,7 @@ class Products extends Component {
           const _this = this;
           reader.onload = function(){
               const imageDataUrl = reader.result;
-              _this.setState({[item]:imageDataUrl});
+              _this.setState({ttt:imageDataUrl});
           }
 
         } else {
@@ -118,8 +118,8 @@ class Products extends Component {
           >
             {console.log(this.state[it.imgurl])
             }
-            {this.state[it.imgurl] ? "":this.getImageFromServer(it.imgurl)}
-            <Card.Img variant="top" src={this.state[it.imgurl]} />
+            {this.state.ttt ? "":this.getImageFromServer(it.imgurl)}
+            <Card.Img variant="top" src={this.state.ttt} />
             <Card.Body variant="bottom">
               <Card.Title alt={it.name} key={index}>
                 {it.name}

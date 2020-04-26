@@ -8,7 +8,7 @@ class AdminPanel extends Component {
 
   findCategory = (category) => {
     let temp = this.props.category.find(it => it.name ===category)
-    console.log(temp.ename);
+    // console.log(temp.ename);
        this.setState({ currentCategory: temp.ename });
   }
   postNewItem = () => {
@@ -20,7 +20,7 @@ class AdminPanel extends Component {
       this.state.description !== "" &&
       this.state.brand !== ""
     ) {
-      console.log("good 1234");
+      // console.log("good 1234");
       let formData = new FormData();
       formData.append("theImage", this.state.file);
       formData.append("itemName", this.state.itemName);
@@ -36,7 +36,7 @@ class AdminPanel extends Component {
         .then(res => {
           if (res.status === 201) {
             this.setState({ newFileName: res.data.body.itemName });
-            console.log(res.data.file);
+            // console.log(res.data.file);
             
           } else {
             console.log(`error status code ${res.status}`);
@@ -56,7 +56,7 @@ class AdminPanel extends Component {
   render() {
     return (
       <div style={{ textAlign: "center" }}>
-        {/* <img alt="ddd" src="./images1/5a7414361562279c1547d17165c4ca8e"/> */}
+        
         <h1>ניהול האתר</h1> 
         <AddCategory key1={this.props.key1}/>
         <h3>הוספת מוצר</h3>
@@ -83,7 +83,6 @@ class AdminPanel extends Component {
                 <select
                   onChange={evt =>{
                     this.findCategory(evt.target.value)
-                    // this.setState({ currentCategory: evt.target.value })
                   }
                   }
                   id="category"
