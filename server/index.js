@@ -74,8 +74,8 @@ app.get("/productImg/:categoryToFind", (req, res) => {
 
 //  =====  "images" get img by name
 app.get("/images/:imgToSend", (req, res) => {  
-  console.log(req.params.imgToSend,"req.params.imgToSend----");
-  routeHelper.sendImg(req, res, req.params.imgToSend)
+  // console.log(req.params.imgToSend,"req.params.imgToSend----");
+  routeHelper.sendImg(res, req.params.imgToSend)
   // routeHelper.productImg(req, res, req.params.imgToSend);
 });
 

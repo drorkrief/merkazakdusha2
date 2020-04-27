@@ -7,15 +7,17 @@ const nodemailer = require("nodemailer");
 let numOrder = 1;
 const path = require("path");
 
-function sendImg(req, res, imgToSend){
+function sendImg(res, imgToSend){
 // console.log("1234321234");
 const fullPathFileName = path.join(
   __dirname,
   uploadDirectory,
   imgToSend
 );
+return fullPathFileName? res.status(200).sendFile(fullPathFileName):res.sendStatus(400);
+;
 
-res.sendFile(fullPathFileName);
+// res.sendFile(fullPathFileName);
 }
 
 
