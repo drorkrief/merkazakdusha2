@@ -8,12 +8,12 @@ let numOrder = 1;
 const path = require("path");
 
 function sendImg(res, imgToSend){
-// console.log("1234321234");
-const fullPathFileName = path.join(
-  __dirname,
-  uploadDirectory,
-  imgToSend
-);
+  const fullPathFileName = path.join(
+    __dirname,
+    uploadDirectory,
+    imgToSend
+    );
+    console.log(fullPathFileName);
 return fullPathFileName? res.status(200).sendFile(fullPathFileName):res.sendStatus(400);
 ;
 
