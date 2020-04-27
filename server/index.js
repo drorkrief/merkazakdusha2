@@ -19,7 +19,7 @@ const jwtVerifier = require('express-jwt')
 
 const utils = require("./auth_utils");
 const multer = require("multer");
-const uploadDirectory = "uploads/";
+const uploadDirectory = "uploads";
 const upload = multer({ dest: uploadDirectory });
 
 app.use(express.json()); // to support JSON-encoded bodies
