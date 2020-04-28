@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from "axios";
 class ShowImg extends Component {
-    state={img:""}
+    state={imgToShow:""}
     getImageFromServer = (item) => {
         console.log(item, "===item");
         
@@ -14,9 +14,10 @@ class ShowImg extends Component {
               const _this = this;
               reader.onload = function(){
                   const imageDataUrl = reader.result;
-                  _this.setState({img:imageDataUrl});
+                  _this.setState({imgToShow:imageDataUrl});
               }
-    
+              console.log(this.state.imgToShow);
+              
             } else {
               console.log(`error status code : ${res.status}`);
             }
@@ -28,8 +29,8 @@ class ShowImg extends Component {
 
         return (
             <div>
-            {this.state.img?"": this.getImageFromServer(this.props.imgName)}
-            {this.state.img?<img style={{height:"20%"}} src={this.state.img}/> :""}
+            {this.state.imgToShow?"": this.getImageFromServer(this.props.imgName)}
+            {this.state.imgToShow?<img style={{height:"20%"}} src={this.state.imgToShow}/> :""}
             </div>
         );
     }

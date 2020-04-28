@@ -1,5 +1,5 @@
 const my_db = "my_kdusha";
-const uploadDirectory = "uploads";
+let uploadDirectory = "uploads";
 const MongoClient = require("mongodb").MongoClient;
 const url = "mongodb://localhost:27017/my_kdusha";
 // const ordersHandle = require("./ordersHandle");
@@ -8,6 +8,9 @@ let numOrder = 1;
 const path = require("path");
 
 function sendImg(res, imgToSend){
+  if (process.env.NODE_ENV === "production") {
+    uploadDirectory = "../uploads";
+  }
   const fullPathFileName = path.join(
     __dirname,
     uploadDirectory,
