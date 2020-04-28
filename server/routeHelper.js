@@ -10,14 +10,14 @@ const path = require("path");
 function sendImg(res, imgToSend){
   if (process.env.NODE_ENV === "production") {
     uploadDirectory = "../uploads";
-  }
+  }else{uploadDirectory = "uploads";}
   const fullPathFileName = path.join(
     __dirname,
     uploadDirectory,
     imgToSend
     );
     console.log(fullPathFileName);
-return fullPathFileName? res.status(200).sendFile(fullPathFileName):res.sendStatus(400);
+  fullPathFileName? res.status(200).sendFile(fullPathFileName):res.sendStatus(400);
 ;
 
 // res.sendFile(fullPathFileName);
@@ -45,7 +45,7 @@ function productImg(req, res, newFileName) {
           return res.sendStatus(500);
         }
         if (result) {
-          
+          uploadDirectory = "uploads";
           const fullPathFileName = path.join(
             __dirname,
             uploadDirectory,

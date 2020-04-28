@@ -3,11 +3,12 @@ import axios from "axios";
 class ShowImg extends Component {
     state={imgToShow:""}
     getImageFromServer = (item) => {
-        console.log(item, "===item");
+        // console.log(item, "===item");
         
         axios
           .get(`/images/${item}`, { responseType: "blob" })
           .then(res => {
+            console.log(res.status,"res.status");
             if (res.status === 304 || res.status === 200 ) {
               const reader = new FileReader();
               reader.readAsDataURL(res.data);
@@ -16,7 +17,7 @@ class ShowImg extends Component {
                   const imageDataUrl = reader.result;
                   _this.setState({imgToShow:imageDataUrl});
               }
-              console.log(this.state.imgToShow);
+              // console.log(this.state.imgToShow);
               
             } else {
               console.log(`error status code : ${res.status}`);
