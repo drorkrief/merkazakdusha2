@@ -8,7 +8,7 @@ class ShowImg extends Component {
         axios
           .get(`/images/${item}`, { responseType: "blob" })
           .then(res => {
-            if (res.status === 200) {
+            if (res.status === 304 || res.status === 200 ) {
               const reader = new FileReader();
               reader.readAsDataURL(res.data);
               const _this = this;
