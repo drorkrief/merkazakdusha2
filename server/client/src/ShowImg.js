@@ -18,6 +18,8 @@ class ShowImg extends Component {
               reader.onload = function(){
                   const imageDataUrl = reader.result;
                   _this.setState({imgToShow:imageDataUrl});
+                  console.log(reader, "reader--reader");
+                  
               }
               // console.log(this.state.imgToShow);
               
