@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import axios from "axios";
 class ShowImg extends Component {
     state={imgToShow:""}
+    
+
     getImageFromServer = (item) => {
         // console.log(item, "===item");
         
@@ -25,12 +27,16 @@ class ShowImg extends Component {
           })
           .catch(err => console.log(err));
       };
-    render() {
+      render() {
+        if(!this.state.imgToShow){
+
+          this.getImageFromServer(this.props.imgName);
+        }
         console.log(this.props.imgName);
 
         return (
             <div>
-            {this.state.imgToShow?"": this.getImageFromServer(this.props.imgName)}
+            {/* {this.state.imgToShow?"": this.getImageFromServer(this.props.imgName)} */}
             {this.state.imgToShow?<img style={{height:"20%"}} src={this.state.imgToShow}/> :""}
             </div>
         );
