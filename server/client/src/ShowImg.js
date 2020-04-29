@@ -9,14 +9,14 @@ class ShowImg extends Component {
           .get(`/images/${item}`, { responseType: "blob" })
           .then(res => {
             console.log(res.status,"res.status");
-            const reader = new FileReader();
-            reader.readAsDataURL(res.data);
-            const _this = this;
-            reader.onload = function(){
-                const imageDataUrl = reader.result;
-                _this.setState({imgToShow:imageDataUrl});
-            }
             if (res.status === 304 || res.status === 200 ) {
+              const reader = new FileReader();
+              reader.readAsDataURL(res.data);
+              let _this = this;
+              reader.onload = function(){
+                  const imageDataUrl = reader.result;
+                  _this.setState({imgToShow:imageDataUrl});
+              }
               // console.log(this.state.imgToShow);
               
             } else {
