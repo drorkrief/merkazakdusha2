@@ -3,6 +3,7 @@ import Table from "react-bootstrap/Table";
 import CheckOut from "./CheckOut";
 import { MdAddCircle, MdDelete } from "react-icons/md";
 import { FaMinusCircle } from "react-icons/fa";
+import ShowImg from "./ShowImg";
 
 class Cart extends Component {
   state = { cartList: this.props.cartList, total: 0 };
@@ -65,11 +66,12 @@ class Cart extends Component {
                 <td>{(it.price).toFixed(2)}</td>
                 <td>{it.name}</td>
                 <td>
-                  <img
+                <ShowImg imgName={it.imgurl} />
+                  {/* <img
                     style={{ height: "35px" }}
                     alt={it.name}
                     src={it.currentImg}
-                  ></img>
+                  ></img> */}
                 </td>
               </tr>
             ))}

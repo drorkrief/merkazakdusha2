@@ -104,6 +104,9 @@ body {
   position: fixed;
   z-index: 3;
 }
+tr td div img{
+  width: 5vw !important; 
+}
 select option:nth-child(2)::before {
   content: "- Remember this";
   background-color: yellow;
