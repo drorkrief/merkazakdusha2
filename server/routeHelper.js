@@ -45,13 +45,14 @@ function productImg(req, res, newFileName) {
           return res.sendStatus(500);
         }
         if (result) {
-          uploadDirectory = "uploads";
-          const fullPathFileName = path.join(
-            __dirname,
-            uploadDirectory,
-            result.imgurl
-          );
-          return res.sendFile(fullPathFileName);
+          // uploadDirectory = "uploads";
+          // const fullPathFileName = path.join(
+          //   __dirname,
+          //   uploadDirectory,
+          //   result.imgurl
+          // );
+          // return res.sendFile(fullPathFileName);
+          res.status(200).send(result.imgurl)
           // return res.sendStatus(200);
           // return res.send(result).status(200)
         } else {
