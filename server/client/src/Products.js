@@ -6,23 +6,20 @@ import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { Redirect, withRouter } from "react-router-dom";
-import ShowImg from "./ShowImg"
+import ShowImg from "./ShowImg";
 class Products extends Component {
   state = { it: [], cyrrentCtgry: "", redirect: true, products: undefined };
   cat = "";
   cartList = "";
   productsList = "";
-  
+
   getCategories = () => {
     axios
       .get("/categories")
-      .then(res => {
-        
+      .then((res) => {
         this.setState({ categories: res.data.res });
-        
       })
-      .catch(err => console.log(err));
-    
+      .catch((err) => console.log(err));
   };
   componentWillMount() {
     this.getCategories();
@@ -34,39 +31,35 @@ class Products extends Component {
       this.setState({ cyrrentCtgry: this.props.category });
     }
   }
-  getProducts = ctgry => {
+  getProducts = (ctgry) => {
     axios
       .get(`/products/?category=${ctgry}`)
-      .then(res => {
-        
+      .then((res) => {
         this.setState({ products: res.data.res });
-        
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
 
   render() {
     let style2 = {
         width: "15rem",
-        height: "23rem"
+        height: "23rem",
       },
       direct = this.state.redirect ? (
         ""
       ) : (
         <Redirect
           to={{
-            pathname: "/Product"
+            pathname: "/Product",
           }}
         />
       );
-    
 
     if (this.state.categories) {
       this.cat = this.state.categories.map((it, index) => (
         <Button
           value={it.ename}
           onClick={() => {
-           
             this.props.history.replace("/Products/" + it.ename);
           }}
           className="btnCateg"
@@ -82,27 +75,21 @@ class Products extends Component {
         paddingTop: "10px",
         paddingRight: "10px",
         float: "right",
-        
+
         height: "26rem",
-        cursor: "pointer"
+        cursor: "pointer",
       };
       this.productsList = this.state.products.map((it, index) => (
         <div key={index} style={style1}>
           <Card
             key={index}
             style={style2}
-            // onMouseOver={()=>{return style={boxShadow: "6px 5px 20px 0px black"}}}
-            // style={linkStyle} onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover}
             onClick={() => {
               this.setState({ redirect: !this.state.redirect });
               this.props.currentItem(it, this.state[it.imgurl]);
             }}
           >
-            {console.log(this.state.ttt)
-            }
-            
-            {/* <Card.Img variant="top" src={this.state.ttt} /> */}
-            <ShowImg imgName={it.imgurl}/>
+            <ShowImg imgName={it.imgurl} />
             <Card.Body variant="bottom">
               <Card.Title alt={it.name} key={index}>
                 {it.name}
@@ -113,9 +100,9 @@ class Products extends Component {
               <Row style={{ bottom: 10, position: "absolute" }}>
                 <Col>
                   <Button
-                    onClick={e => {
+                    onClick={(e) => {
                       // console.log(it._id);
-                      it.currentImg=this.state[it.imgurl];
+                      it.currentImg = this.state[it.imgurl];
                       this.props.addToCart(it);
                       // let tempArry=this.state.products;
                       // tempArry[index].onCart=true;
@@ -167,8 +154,6 @@ class Products extends Component {
 
     return (
       <div>
-                
-
         {direct}
         <ButtonGroup aria-label="Basic example">{this.cat}</ButtonGroup>
         <div>{this.productsList}</div>

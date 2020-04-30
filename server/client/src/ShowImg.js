@@ -35,7 +35,7 @@ class ShowImg extends Component {
       <div>
         {/* {this.state.imgToShow?"": this.getImageFromServer(this.props.imgName)} */}
         {this.state.imgToShow ? (
-          <img style={{ height: "20%" }} src={this.state.imgToShow} />
+          <img style={{ width: "100%" }} src={this.state.imgToShow} />
         ) : (
           ""
         )}
