@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import Button from "react-bootstrap/Button";
 import { withRouter } from "react-router-dom";
+import ShowImg from "./ShowImg";
 
 class Product extends Component {
  
@@ -23,16 +24,21 @@ class Product extends Component {
           <h1 className="h3" >
             {this.props.currentItem ? this.props.currentItem.name : ""}
           </h1>
-          <img
+          {this.props.currentItem ? <ShowImg imgName={this.props.currentItem.imgurl} /> : ""}
+
+          {/* <ShowImg imgName={this.props.currentItem.imgurl} /> */}
+          {/* <img
             style={style}
             alt={this.props.currentItem ? this.props.currentItem.name : ""}
             variant="top"
             src={
               this.props.currentItem ?  this.props.currentItem.currentImg : ""
             }
-          />
+          /> */}
           <h3 className="h5">
-            {this.props.currentItem ? this.props.currentItem.description : ""} :תיאור 
+            &nbsp;
+            תיאור:  
+            { this.props.currentItem ? this.props.currentItem.description : ""}
           </h3>
           <h3 className="h5">
             {this.props.currentItem ? this.props.currentItem.price : ""} :מחיר

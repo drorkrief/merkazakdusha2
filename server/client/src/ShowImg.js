@@ -37,7 +37,14 @@ class ShowImg extends Component {
         {this.state.imgToShow ? (
           <img style={{ width: "100%" }} src={this.state.imgToShow} />
         ) : (
-          ""
+          <div
+              style={{ position: "absolute" , left: "45%" , top: "30%"}}
+              className="spinner-border"
+              role="status"
+            >
+              <span className="sr-only">Loading...</span>
+            </div>
+          
         )}
       </div>
     );
