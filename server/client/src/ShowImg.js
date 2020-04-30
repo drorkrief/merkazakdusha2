@@ -29,11 +29,14 @@ class ShowImg extends Component {
           })
           .catch(err => console.log(err));
       };
-      render() {
+      componentDidMount(){
+        
         if(!this.state.imgToShow){
-
           this.getImageFromServer(this.props.imgName);
+  
         }
+      }
+      render() {
         console.log(this.props.imgName);
 
         return (
