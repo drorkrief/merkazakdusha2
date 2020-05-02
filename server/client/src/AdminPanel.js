@@ -3,14 +3,21 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import axios from "axios";
 import AddCategory from "./AddCategory";
+import Tabs from "react-bootstrap/Tabs";
+import Tab from "react-bootstrap/Tab";
+
 class AdminPanel extends Component {
   state = { file: "", itemName: "", currentCategory: "" };
 
   findCategory = (category) => {
-    let temp = this.props.category.find(it => it.name ===category)
-    // console.log(temp.ename);
-       this.setState({ currentCategory: temp.ename });
-  }
+    if(category){
+      let temp = this.props.category.find((it) => it.name === category);
+      this.setState({ currentCategory: temp.ename });
+    }
+    else{
+      this.setState({ currentCategory: "" });
+    }
+  };
   postNewItem = () => {
     if (
       this.state.file !== "" &&
@@ -35,11 +42,10 @@ class AdminPanel extends Component {
 
       axios
         .post("/insertNewItem", formData, config)
-        .then(res => {
+        .then((res) => {
           if (res.status === 201) {
             this.setState({ newFileName: res.data.body.itemName });
             // console.log(res.data.file);
-            
           } else {
             console.log(`error status code ${res.status}`);
           }
@@ -47,23 +53,27 @@ class AdminPanel extends Component {
             brand: "",
             description: "",
             price: "",
-            mkt:"",
-            size:"",
+            mkt: "",
+            size: "",
             currentCategory: "",
             itemName: "",
-            file: ""
+            file: "",
           });
         })
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
     }
   };
   render() {
     return (
       <div style={{ textAlign: "center" }}>
-        
-        <h1>ניהול האתר</h1> 
-        <AddCategory key1={this.props.key1}/>
-        <h3>הוספת מוצר</h3>
+        <h1>ניהול האתר</h1>
+        <Tabs style={{direction:"rtl"}}
+          defaultActiveKey="home"
+          transition={false}
+          id="noanim-tab-example"
+        >
+          <Tab eventKey="home" title="ניהול מוצרים">
+          <h3>הוספת מוצר</h3>
         {this.state.newFileName ? (
           <div className="continueProcess">
             <h2>מוצר: {this.state.newFileName} נוסף בהצלחה</h2>
@@ -71,7 +81,9 @@ class AdminPanel extends Component {
               onClick={() => {
                 this.setState({ newFileName: false });
               }}
-            >המשך להוסיף מוצרים</button>
+            >
+              המשך להוסיף מוצרים
+            </button>
           </div>
         ) : (
           <div
@@ -79,16 +91,15 @@ class AdminPanel extends Component {
             style={{ direction: "rtl", textAlign: "right" }}
           >
             <Row>
-              <Col sm={3}>
+              <Col sm={2}>
                 <label htmlFor="category">בחר קטגוריה:</label>
               </Col>
               <Col>
                 {" "}
                 <select
-                  onChange={evt =>{
-                    this.findCategory(evt.target.value)
-                  }
-                  }
+                  onChange={(evt) => {
+                    this.findCategory(evt.target.value);
+                  }}
                   id="category"
                 >
                   <option value="">בחר</option>
@@ -103,60 +114,62 @@ class AdminPanel extends Component {
               </Col>
             </Row>
             <Row>
-              <Col sm={3}>
+              <Col sm={2}>
                 {" "}
                 <label htmlFor="category">שם המוצר:</label>
               </Col>
               <Col>
                 <input
                   type="text"
-                  onChange={evt =>
+                  onChange={(evt) =>
                     this.setState({ itemName: evt.target.value })
                   }
                 ></input>
               </Col>
             </Row>
             <Row>
-              <Col sm={3}>
+              <Col sm={2}>
                 <label htmlFor="category">מחיר המוצר:</label>
               </Col>
               <Col>
                 <input
-                  onChange={evt => this.setState({ price: Number(evt.target.value) })}
+                  onChange={(evt) =>
+                    this.setState({ price: Number(evt.target.value) })
+                  }
                   type="number"
                 ></input>
               </Col>
             </Row>
             {/* new data to item: size, mkt */}
             <Row>
-              <Col sm={3}>
+              <Col sm={2}>
                 <label htmlFor="category">מקט:</label>
               </Col>
               <Col>
                 <input
-                  onChange={evt => this.setState({ mkt: evt.target.value })}
+                  onChange={(evt) => this.setState({ mkt: evt.target.value })}
                   type="text"
                 ></input>
               </Col>
             </Row>
             <Row>
-              <Col sm={3}>
+              <Col sm={2}>
                 <label htmlFor="category">גודל:</label>
               </Col>
               <Col>
                 <input
-                  onChange={evt => this.setState({ size: evt.target.value })}
+                  onChange={(evt) => this.setState({ size: evt.target.value })}
                   type="text"
                 ></input>
               </Col>
             </Row>
             <Row>
-              <Col sm={3}>
+              <Col sm={2}>
                 <label htmlFor="category">תיאור המוצר:</label>
               </Col>
               <Col>
                 <input
-                  onChange={evt =>
+                  onChange={(evt) =>
                     this.setState({ description: evt.target.value })
                   }
                   type="text"
@@ -164,18 +177,18 @@ class AdminPanel extends Component {
               </Col>
             </Row>
             <Row>
-              <Col sm={3}>
+              <Col sm={2}>
                 <label htmlFor="category">חברה/מותג:</label>
               </Col>
               <Col>
                 <input
-                  onChange={evt => this.setState({ brand: evt.target.value })}
+                  onChange={(evt) => this.setState({ brand: evt.target.value })}
                   type="text"
                 ></input>
               </Col>
             </Row>
             <Row>
-              <Col sm={3}>
+              <Col sm={2}>
                 <label htmlFor="img">תמונה:</label>
               </Col>
               <Col>
@@ -184,17 +197,31 @@ class AdminPanel extends Component {
                   id="img"
                   name="img"
                   accept="image/*"
-                  onChange={evt => this.setState({ file: evt.target.files[0] })}
+                  onChange={(evt) =>
+                    this.setState({ file: evt.target.files[0] })
+                  }
                 />
               </Col>
             </Row>
             <Row>
               <Col>
-                <button onClick={this.postNewItem}>click</button>
+                <button onClick={this.postNewItem}>שלח</button>
               </Col>
             </Row>
           </div>
         )}
+          </Tab>
+          <Tab eventKey="profile" title="ניהול קטגוריות">
+        <AddCategory key1={this.props.key1} />
+          </Tab>
+          <Tab eventKey="contact" title="ניהול הזמנות">
+            <h3>...בקרוב</h3>
+          </Tab>
+          <Tab eventKey="feed" title="ניהול פוסטים">
+            <h3>...בקרוב</h3>
+          </Tab>
+        </Tabs>
+        
       </div>
     );
   }
