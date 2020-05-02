@@ -85,6 +85,8 @@ function insertNewItem(req, res) {
     if (err) throw err;
     var dbo = db.db(my_db);
     var myobj = {
+      mkt: req.body.mkt,
+      size: req.body.size,
       name: req.body.itemName,
       brand: req.body.brand,
       price: Number(req.body.price),

@@ -92,7 +92,7 @@ class Products extends Component {
             <ShowImg imgName={it.imgurl} />
             <Card.Body variant="bottom">
               <Card.Title alt={it.name} key={index}>
-                {it.name}
+                {it.name}<h6 style={{fontSize:"1.4vw"}}>מקט:{it.mkt}</h6>
               </Card.Title>
               {/* <Card.Text style={{ overflow: "auto" }}>
                 {it.description}
@@ -131,7 +131,7 @@ class Products extends Component {
                 }}> הסר מהסל</Button>
               } */}
                 </Col>
-                <Col>מחיר:{it.price}</Col>
+            <Col>מחיר:{it.price}</Col>
               </Row>
             </Card.Body>
           </Card>

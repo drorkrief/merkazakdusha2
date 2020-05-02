@@ -28,6 +28,8 @@ class AdminPanel extends Component {
       formData.append("price", this.state.price);
       formData.append("description", this.state.description);
       formData.append("brand", this.state.brand);
+      formData.append("size", this.state.size);
+      formData.append("mkt", this.state.mkt);
 
       const config = { headers: { "content-type": "multipart/form-data" } };
 
@@ -45,6 +47,8 @@ class AdminPanel extends Component {
             brand: "",
             description: "",
             price: "",
+            mkt:"",
+            size:"",
             currentCategory: "",
             itemName: "",
             file: ""
@@ -120,6 +124,29 @@ class AdminPanel extends Component {
                 <input
                   onChange={evt => this.setState({ price: Number(evt.target.value) })}
                   type="number"
+                ></input>
+              </Col>
+            </Row>
+            {/* new data to item: size, mkt */}
+            <Row>
+              <Col sm={3}>
+                <label htmlFor="category">מקט:</label>
+              </Col>
+              <Col>
+                <input
+                  onChange={evt => this.setState({ mkt: evt.target.value })}
+                  type="text"
+                ></input>
+              </Col>
+            </Row>
+            <Row>
+              <Col sm={3}>
+                <label htmlFor="category">גודל:</label>
+              </Col>
+              <Col>
+                <input
+                  onChange={evt => this.setState({ size: evt.target.value })}
+                  type="text"
                 ></input>
               </Col>
             </Row>

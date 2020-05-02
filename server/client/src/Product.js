@@ -43,6 +43,12 @@ class Product extends Component {
           <h3 className="h5">
             {this.props.currentItem ? this.props.currentItem.price : ""} :מחיר
           </h3>
+          <h3 className="h5">
+            {this.props.currentItem ? this.props.currentItem.size : ""} :גודל
+          </h3>
+          <h3 className="h5">
+            {this.props.currentItem ? this.props.currentItem.mkt : ""} :מק"ט
+          </h3>
           <Button
                     style={{width:"15vw", minWidth:"100px"}}
             onClick={e => {
