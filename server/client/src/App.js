@@ -22,7 +22,7 @@ import AdminPanel from "./AdminPanel";
 class App extends Component {
   
   cat = "";
-  state = { data: "", zmanim: "", cartList: [] ,user:null, key:""};
+  state = { data: "", zmanim: "", cartList: [] ,user:null, key:"", categories:""};
   setSecretKey = key => {
     this.setState({ key: key });
   }
@@ -152,7 +152,7 @@ reduceQuantity = item => {
           <Route exact path="/Subscibe" component={Subscibe} />
           <Route exact path="/Schedule" component={Schedule} />
           <Route exact path="/Address" component={Address} />
-          <Route exact path="/AdminPanel" render={()=><AdminPanel key1={this.state.key} category={this.state.categories}/>}/>
+          <Route exact path="/AdminPanel" render={()=><AdminPanel key1={this.state.key} category={this.state.categories} getCategories={this.getCategories}/>}/>
           <Route
             exact
             path="/Product"

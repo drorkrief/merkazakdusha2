@@ -7,7 +7,6 @@ class AddCategory extends Component {
         const config = {
             headers: { Authorization: `Bearer ${this.props.key1}` }
         };
-        console.log(this.props.key1);
         
         axios
         .post("/addCategory",{he:this.state.he, en:this.state.en}, 
@@ -16,7 +15,7 @@ class AddCategory extends Component {
           if (res.status === 201) {
             console.log(res.status);
             this.setState({ result: res.data.he });
-            
+            this.props.getCategories()
           } else {
             console.log(`error status code ${res.status}`);
           }

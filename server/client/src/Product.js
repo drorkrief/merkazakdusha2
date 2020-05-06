@@ -15,9 +15,7 @@ class Product extends Component {
   }
  
   render() {
-    let style={
-      width:"70%"
-     }
+    
     return (
       <div style={{textAlign:"center"}}>
         <Jumbotron>

@@ -7,6 +7,31 @@ const nodemailer = require("nodemailer");
 let numOrder = 1;
 const path = require("path");
 
+function deleteItemByAdmin(req, res){
+  // console.log(req.params.id);
+  // res.status(200).send(req.data)
+  
+  let mongodb = require('mongodb');
+let parentID = {_id: new mongodb.ObjectID(req.body.id, "second")}
+  // console.log(parentID);
+  
+MongoClient.connect(url,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db(my_db);
+    dbo.collection("products").deleteOne(parentID, function(err, obj) {
+      if (err) {
+        return res.sendStatus(500);
+      }
+      console.log("1 document deleted");
+    });
+  });
+  res.status(201).send(req.body);
+}
+
 function sendImg(res, imgToSend){
   if (process.env.NODE_ENV === "production") {
     uploadDirectory = "../uploads";
@@ -16,7 +41,7 @@ function sendImg(res, imgToSend){
     uploadDirectory,
     imgToSend
     );
-    console.log(fullPathFileName);
+    // console.log(fullPathFileName);
   fullPathFileName? res.status(200).sendFile(fullPathFileName):res.sendStatus(400);
 ;
 
@@ -45,16 +70,7 @@ function productImg(req, res, newFileName) {
           return res.sendStatus(500);
         }
         if (result) {
-          // uploadDirectory = "uploads";
-          // const fullPathFileName = path.join(
-          //   __dirname,
-          //   uploadDirectory,
-          //   result.imgurl
-          // );
-          // return res.sendFile(fullPathFileName);
           res.status(200).send(result.imgurl)
-          // return res.sendStatus(200);
-          // return res.send(result).status(200)
         } else {
           return res.sendStatus(400);
         }
@@ -151,6 +167,7 @@ function products(req, res) {
   );
 }
 
+module.exports.deleteItemByAdmin = deleteItemByAdmin;
 module.exports.sendImg = sendImg;
 module.exports.products = products;
 module.exports.productImg = productImg;

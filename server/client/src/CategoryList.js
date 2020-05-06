@@ -11,7 +11,7 @@ class CategoryList extends Component {
   }
   
   getProductImg = () => {
-    console.log(this.props.category.ename, "this.props.category");
+    // console.log(this.props.category.ename, "this.props.category");
 
     axios
       .get(`/productImg/${this.props.category.ename}`)

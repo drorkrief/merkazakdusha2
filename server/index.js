@@ -1,37 +1,27 @@
 console.log("app is loading");
 const routeHelper = require("./routeHelper");
-
 const express = require("express");
 const app = express();
-
 const utils2 = require('./production_utils')
-
 const my_db = "my_kdusha";
 const MongoClient = require("mongodb").MongoClient;
 const url = `mongodb://localhost:27017/my_kdusha`;
-// const ordersHandle = require("./ordersHandle");
 const nodemailer = require("nodemailer");
 let numOrder = 1;
-
-
 let userId;
 const jwtVerifier = require('express-jwt')
-
 const utils = require("./auth_utils");
 const multer = require("multer");
 const uploadDirectory = "uploads";
 const upload = multer({ dest: uploadDirectory });
 
 app.use(express.json()); // to support JSON-encoded bodies
-// app.use(express.urlencoded());
-// app.use(express.urlencoded({ extended: true }))
-
 
 
 // ----- send email to manager when order done
 
 function sendEmailToManege(orderData) {
-  console.log(orderData, "orderData orderData vorderData orderData");
+  
 
   var transporter = nodemailer.createTransport({
     service: "gmail",
@@ -71,10 +61,13 @@ function sendEmailToManege(orderData) {
 app.get("/productImg/:categoryToFind", (req, res) => {  
   routeHelper.productImg(req, res, req.params.categoryToFind);
 });
+//====== ===  delete Item By Admin
 
+app.delete("/deleteItemByAdmin",jwtVerifier({secret:utils.secret}), (req, res) => {
+  routeHelper.deleteItemByAdmin(req, res);
+} )
 //  =====  "images" get img by name
 app.get("/images/:imgToSend", (req, res) => {  
-  // console.log(req.params.imgToSend,"req.params.imgToSend----");
   routeHelper.sendImg(res, req.params.imgToSend)
   // routeHelper.productImg(req, res, req.params.imgToSend);
 });
@@ -130,7 +123,7 @@ app.post("/order", function(req, res) {
           var newvalues = {
             $set: { phone: req.body.user.phone, address: req.body.user.address }
           };
-          console.log(result._id);
+          // console.log(result._id);
           userId = result._id;
           dbo
             .collection("users")

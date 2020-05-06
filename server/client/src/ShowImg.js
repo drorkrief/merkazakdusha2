@@ -7,7 +7,7 @@ class ShowImg extends Component {
     axios
       .get(`/images/${item}`, { responseType: "blob" })
       .then((res) => {
-        console.log(res.status, "res.status");
+        // console.log(res.status, "res.status");
         if (res.status === 304 || res.status === 200) {
           const reader = new FileReader();
           reader.readAsDataURL(res.data);
@@ -15,7 +15,7 @@ class ShowImg extends Component {
           reader.onload = function () {
             const imageDataUrl = reader.result;
             _this.setState({ imgToShow: imageDataUrl });
-            console.log(reader, "reader--reader");
+            // console.log(reader, "reader--reader");
           };
         } else {
           console.log(`error status code : ${res.status}`);
@@ -29,13 +29,13 @@ class ShowImg extends Component {
     }
   }
   render() {
-    console.log(this.props.imgName);
+    // console.log(this.props.imgName);
 
     return (
       <div>
         {/* {this.state.imgToShow?"": this.getImageFromServer(this.props.imgName)} */}
         {this.state.imgToShow ? (
-          <img style={{ width: "100%" }} src={this.state.imgToShow} />
+          <img alt={this.props.imgName} style={{ width: "100%" }} src={this.state.imgToShow} />
         ) : (
           <div
               style={{ position: "absolute" , left: "45%" , top: "30%"}}
