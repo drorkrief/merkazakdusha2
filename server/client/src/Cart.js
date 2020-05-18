@@ -67,11 +67,6 @@ class Cart extends Component {
                 <td>{it.name}</td>
                 <td>
                 <ShowImg imgName={it.imgurl} />
-                  {/* <img
-                    style={{ height: "35px" }}
-                    alt={it.name}
-                    src={it.currentImg}
-                  ></img> */}
                 </td>
               </tr>
             ))}

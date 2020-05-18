@@ -20,12 +20,15 @@ MongoClient.connect(url,
     useNewUrlParser: true,
     useUnifiedTopology: true,
   }, function(err, db) {
-    if (err) throw err;
+    if (err) {
+      return res.sendStatus(500);
+    }
     var dbo = db.db(my_db);
     dbo.collection("products").deleteOne(parentID, function(err, obj) {
       if (err) {
-        return res.sendStatus(500);
+         res.sendStatus(500);
       }
+      
       console.log("1 document deleted");
     });
   });

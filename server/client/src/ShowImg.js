@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 class ShowImg extends Component {
-  state = { imgToShow: "" };
+  state = { imgToShow: "" ,imgName: "" };
 
   getImageFromServer = (item) => {
     axios
@@ -22,20 +22,33 @@ class ShowImg extends Component {
         }
       })
       .catch((err) => console.log(err));
+      this.setState({ imgName: item });
   };
   componentDidMount() {
-    if (!this.state.imgToShow) {
+    if (!this.state.imgToShow ) {
       this.getImageFromServer(this.props.imgName);
     }
+    // if (this.props.imgName !== this.state.imgName) {
+    //   this.getImageFromServer(this.props.imgName);
+      
+    // }
+  }
+  componentWillReceiveProps(nextProps) {
+    // You don't have to do this check first, but it can help prevent an unneeded render
+    this.getImageFromServer(nextProps.imgName);
+    
+    // if (nextProps.imgName !== this.state.imgName) {
+    //   this.setState({ imgName: nextProps.imgName });
+    // }
   }
   render() {
     // console.log(this.props.imgName);
 
     return (
-      <div>
+      <div style={{width: "100%", height:"100%",overflow:"hidden"}}>
         {/* {this.state.imgToShow?"": this.getImageFromServer(this.props.imgName)} */}
         {this.state.imgToShow ? (
-          <img alt={this.props.imgName} style={{ width: "100%" }} src={this.state.imgToShow} />
+          <img alt={this.props.imgName} style={{ width: "100%", height:"100%",objectFit:"cover" }} src={this.state.imgToShow} />
         ) : (
           <div
               style={{ position: "absolute" , left: "45%" , top: "30%"}}

@@ -89,7 +89,9 @@ class Products extends Component {
               this.props.currentItem(it, this.state[it.imgurl]);
             }}
           >
+            <div style={{height:"60%"}}>
             <ShowImg imgName={it.imgurl} />
+            </div>
             <Card.Body variant="bottom">
               <Card.Title alt={it.name} key={index}>
                 {it.name}<h6 style={{fontSize:"1.4vw"}}>מקט:{it.mkt}</h6>
@@ -116,39 +118,14 @@ class Products extends Component {
                   >
                     הוסף לסל
                   </Button>
-                  {/* {!this.state.products[index].onCart?
-                
-                :<Button variant="danger"  onClick={e => {
-                  // console.log(it._id);
-                  // this.props.addToCart(it);
-                  let tempArry=this.state.products;
-                  tempArry[index].onCart=false;
-                  console.log(tempArry[index],"---tempArry");
-                  this.setState({products : tempArry });
-                  console.log(this.state.products,"-----state");
-                  
-                  e.stopPropagation();
-                }}> הסר מהסל</Button>
-              } */}
+                 
                 </Col>
             <Col>מחיר:{it.price}</Col>
               </Row>
             </Card.Body>
           </Card>
         </div>
-        //         <div className="prdcts" key={index}>
-        //           {it.name}
-        //           <br />
-        //           מחיר:{it.price}
-        //           <br />
-        //           מותג של:{it.brand}
-        //           <img alt={it.name} src={it.imgurl} />
-        //           <br />
-        // {it.description}
-        // <br />
-        // <button onClick={()=>{console.log(it.name);
-        // }}>הוסף לסל</button>
-        //         </div>
+        
       ));
     }
 

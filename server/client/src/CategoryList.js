@@ -61,13 +61,16 @@ class CategoryList extends Component {
       <div className="categorylist" style={{ display: "inline-block" }}>
         {direct}
         <Card
-          style={{ height: "10rem", width: "10rem", margin: "10px" }}
+          style={{ height: "11rem", width: "10rem", margin: "10px" }}
           onClick={() => {
             this.setState({ redirect: !this.state.redirect });
           }}
         >
           {this.state.imgToShow ? (
-            <Card.Img height='150rem'  variant="top"  src={this.state.imgToShow}/>
+            <div className="imgDiv" style={{overflow:"hidden"}}>
+              <img alt={this.state.imgName} src={this.state.imgToShow} style={{width:"100%", height:"100%",objectFit:"cover"}}></img>
+               </div>
+            // <Card.Img height='150rem'  variant="top"  src={this.state.imgToShow}/>
           ) : (
             <div
               style={{ margin: "auto" }}
@@ -78,9 +81,9 @@ class CategoryList extends Component {
             </div>
           )}
 
-          <Card.Body>
+          <Card.Body style={{ padding: "0" }}>
             {this.theCategory.ename ? (
-              <Card.Title style={{ textAlign: "center" }}>
+              <Card.Title style={{ textAlign: "center", position:"absolute", bottom:"0", marginBottom:"0", width:"98%", backgroundColor:"#CBAF70", whiteSpace:"nowrap",overflow:"hidden",textOverflow:"clip",borderRadius:"2px" ,right:"3px" }}>
                 {this.theCategory.ename ? this.theCategory.name : ""}
               </Card.Title>
             ) : (

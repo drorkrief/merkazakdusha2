@@ -32,7 +32,7 @@ class DeleteOrUpdateitem extends Component {
   render() {
     if (this.state.products) {
       this.productsList = this.state.products.map((it, index) => (
-        <ProductsListToDelete key1={this.props.key1} key={index} tableData={it} />
+        <ProductsListToDelete showItms={this.showItms} key1={this.props.key1} key={index} tableData={it} />
       ));
     } else {
       this.productsList = "";
@@ -59,20 +59,7 @@ class DeleteOrUpdateitem extends Component {
         </select>
         <button onClick={this.showItms}>הצג</button>
         <br />
-        <Table>
-          <thead>
-            <tr>
-              <th>שם</th>
-              <th>מחיר</th>
-              <th>מק"ט</th>
-              <th>תיאור</th>
-              <th>גודל</th>
-              <th>תמונה</th>
-              <th>ערוך/מחק</th>
-            </tr>
-          </thead>
-          <tbody>{this.productsList}</tbody>
-        </Table>
+        <Table><thead><tr><th>שם</th><th>מחיר</th><th>מק"ט</th><th>תיאור</th><th>גודל</th><th>תמונה</th><th>ערוך/מחק</th></tr></thead>{this.productsList}</Table>
         {/* {this.state.products?<h1>{this.state.products[0].name}</h1>:""} */}
       </div>
     );
