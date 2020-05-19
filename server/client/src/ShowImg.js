@@ -33,10 +33,12 @@ class ShowImg extends Component {
   }
   componentWillReceiveProps(nextProps) {
     // You don't have to do this check first, but it can help prevent an unneeded render
-    this.getImageFromServer(nextProps.imgName);
+    if(this.state.firstTime){
+      this.getImageFromServer(nextProps.imgName);
+    }
     
     // if (nextProps.imgName !== this.state.imgName) {
-    //   this.setState({ imgName: nextProps.imgName });
+      // this.setState({ imgName: nextProps.imgName });
     // }
   }
   render() {
