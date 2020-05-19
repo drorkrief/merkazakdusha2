@@ -25,21 +25,16 @@ class ShowImg extends Component {
       this.setState({ imgName: item });
   };
   componentDidMount() {
-    if (!this.state.imgToShow || this.state.firstTime) {
+    if (!this.state.imgToShow ) {
+      this.setState({ imgToShow: "" });
       this.getImageFromServer(this.props.imgName);
-      this.setState({ firstTime: true });
+      // this.setState({ firstTime: true });
     }
    
   }
   componentWillReceiveProps(nextProps) {
-    // You don't have to do this check first, but it can help prevent an unneeded render
-    if(this.state.firstTime){
       this.getImageFromServer(nextProps.imgName);
-    }
-    
-    // if (nextProps.imgName !== this.state.imgName) {
-      // this.setState({ imgName: nextProps.imgName });
-    // }
+   
   }
   render() {
     // console.log(this.props.imgName);
