@@ -25,14 +25,15 @@ class ShowImg extends Component {
       this.setState({ imgName: item });
   };
   componentDidMount() {
-    if (!this.state.imgToShow ) {
+    // if (!this.state.imgToShow ) {
       this.setState({ imgToShow: "" });
       this.getImageFromServer(this.props.imgName);
       // this.setState({ firstTime: true });
-    }
+    // }
    
   }
   componentWillReceiveProps(nextProps) {
+    this.setState({ imgToShow: "" , imgName:nextProps.imgName});
       this.getImageFromServer(nextProps.imgName);
    
   }
