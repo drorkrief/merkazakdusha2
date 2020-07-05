@@ -33,8 +33,16 @@ class ShowImg extends Component {
    
   }
   componentWillReceiveProps(nextProps) {
-    this.setState({ imgToShow: "" , imgName:nextProps.imgName});
+    console.log(nextProps,"nextProps");
+    if (nextProps.imgName === this.state.imgName) {
+      console.log("nextProps--------ok");  
+    }
+    else{
+      console.log("nextProps#############no");
+      this.setState({ imgToShow: "" , imgName:nextProps.imgName});
       this.getImageFromServer(nextProps.imgName);
+      
+    }
    
   }
   render() {
