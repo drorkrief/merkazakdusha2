@@ -71,6 +71,14 @@ app.get("/images/:imgToSend", (req, res) => {
   routeHelper.sendImg(res, req.params.imgToSend)
   // routeHelper.productImg(req, res, req.params.imgToSend);
 });
+// ------ update category name by admin | getting : id , newName , Authorization.
+app.post("/uploadCatChanges",jwtVerifier({secret:utils.secret}), (req, res) => {
+  routeHelper.uploadCatChangesInMongo(req, res);
+  // res.sendStatus(200)
+});
+
+
+
 // ------ update changes in product by admin
 app.post("/uploadChanges",jwtVerifier({secret:utils.secret}), (req, res) => {
   routeHelper.uploadChangesInMongo(req, res);

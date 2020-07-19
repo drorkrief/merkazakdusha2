@@ -7,6 +7,7 @@ import axios from "axios";
 
 class ProductsListToDelete extends Component {
   state = {
+    updated : false,
     itemToEdit: "",
     name: this.props.tableData.name,
     price: this.props.tableData.price,
@@ -21,7 +22,6 @@ class ProductsListToDelete extends Component {
   };
   uploadChanges = () => {
     let _this = this;
-    // alert(this.state.size)
     const config = {
       headers: { Authorization: `Bearer ${this.props.key1}` }
   };
@@ -35,6 +35,8 @@ class ProductsListToDelete extends Component {
     }, config)
     .then(function (response) {
       _this.setState({ itemToEdit: false });
+      _this.props.showItms();
+
       console.log(response);
     })
     .catch(function (error) {

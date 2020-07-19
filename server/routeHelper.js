@@ -74,6 +74,28 @@ function productImg(req, res, newFileName) {
   );
 }
 
+// --- upload changes in cat name to the db
+function uploadCatChangesInMongo(req, res) {
+  let response = res; 
+  MongoClient.connect(url,{ useUnifiedTopology: true }, function (err, db) {
+    if (err) {
+      return res.sendStatus(500);
+    };
+    var dbo = db.db(my_db);
+    let oldObj = new mongodb.ObjectID(req.body.id);
+    var myobj = {$set:{ name: req.body.name } };
+    dbo.collection("categories").updateOne({_id: oldObj},myobj, function (err, res) {
+      if (err) {
+        return response.sendStatus(500);
+      }
+      else{
+        return response.status(201).send(req.body);
+      }
+     
+    });
+  });
+}
+
 function uploadChangesInMongo(req, res) {
   let response = res; 
   MongoClient.connect(url,{ useUnifiedTopology: true }, function (err, db) {
@@ -185,6 +207,7 @@ function products(req, res) {
   );
 }
 
+module.exports.uploadCatChangesInMongo = uploadCatChangesInMongo;
 module.exports.uploadChangesInMongo = uploadChangesInMongo;
 module.exports.deleteItemByAdmin = deleteItemByAdmin;
 module.exports.sendImg = sendImg;
