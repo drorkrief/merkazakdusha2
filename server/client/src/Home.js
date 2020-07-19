@@ -11,7 +11,7 @@ class Home extends Component {
   
   render() {
     return (
-      <div style={{paddingTop:"20px"}}>
+      <div>
                 
 
         <Carousel >
@@ -53,7 +53,7 @@ class Home extends Component {
             </Carousel.Caption>
           </Carousel.Item>
         </Carousel>
-        <div>
+        <div style={{marginBottom: "70px", minHeight:"100px" , overflow:"hidden"}}>
         {this.props.category? this.props.category.map((it, index) => (<CategoryList  key={index} category={it} />)):""}
         </div>
         

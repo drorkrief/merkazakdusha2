@@ -13,7 +13,7 @@ class Feed extends Component {
         .then(response=> {
         // handle success
         this.setState({ data: response.data.res });
-         console.log(response.data.res);
+        //  console.log(response.data.res);
          
         
         })

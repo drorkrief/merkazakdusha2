@@ -40,7 +40,7 @@ class DeleteOrUpdateitem extends Component {
     return (
       <div style={{ direction: "rtl", height: "1000px" }}>
         <h1>עדכן או מחק מוצר</h1>
-        <h3>שים לב זה בילתי הפיך...</h3>
+        <h3>שים לב זה בלתי הפיך...</h3>
 
         <select
           onChange={(evt) => {

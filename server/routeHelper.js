@@ -1,20 +1,16 @@
 const my_db = "my_kdusha";
 let uploadDirectory = "uploads";
 const MongoClient = require("mongodb").MongoClient;
-const url = "mongodb://localhost:27017/my_kdusha";
-// const ordersHandle = require("./ordersHandle");
-const nodemailer = require("nodemailer");
-let numOrder = 1;
+const url = "mongodb://localhost:27017/";
 const path = require("path");
+const mongodb = require('mongodb');
+
+
+
 
 function deleteItemByAdmin(req, res){
-  // console.log(req.params.id);
-  // res.status(200).send(req.data)
-  
-  let mongodb = require('mongodb');
 let parentID = {_id: new mongodb.ObjectID(req.body.id, "second")}
-  // console.log(parentID);
-  
+    
 MongoClient.connect(url,
   {
     useNewUrlParser: true,
@@ -44,12 +40,8 @@ function sendImg(res, imgToSend){
     uploadDirectory,
     imgToSend
     );
-    // console.log(fullPathFileName);
   fullPathFileName? res.status(200).sendFile(fullPathFileName):res.sendStatus(400);
-;
-
-// res.sendFile(fullPathFileName);
-}
+;}
 
 
 function productImg(req, res, newFileName) {
@@ -82,8 +74,31 @@ function productImg(req, res, newFileName) {
   );
 }
 
+function uploadChangesInMongo(req, res) {
+  let response = res; 
+  MongoClient.connect(url,{ useUnifiedTopology: true }, function (err, db) {
+    if (err) {
+      return res.sendStatus(500);
+    };
+    var dbo = db.db(my_db);
+    let oldObj = new mongodb.ObjectID(req.body.id);
+    // console.log({_id: oldObj}, "-----oldObj----oldObj");
+    var myobj = {$set:{ name: req.body.name ,description:req.body.description, mkt:req.body.mkt, price:req.body.price, size:req.body.size} };
+    dbo.collection("products").updateOne({_id: oldObj},myobj, function (err, res) {
+      if (err) {
+        return response.sendStatus(500);
+      }
+      else{
+        return response.status(201).send(req.body);
+      }
+     
+    });
+  });
+  // res.status(201).send(req.body);
+}
+
 function addCategory(req, res) {
-  console.log("/api is accessed");
+  console.log("/addCategory is accessed");
   MongoClient.connect(url, function (err, db) {
     if (err) throw err;
     var dbo = db.db(my_db);
@@ -99,7 +114,7 @@ function addCategory(req, res) {
 }
 
 function insertNewItem(req, res) {
-  console.log("/api is accessed");
+  console.log("/insertNewItem is accessed");
   MongoClient.connect(url, function (err, db) {
     if (err) throw err;
     var dbo = db.db(my_db);
@@ -170,6 +185,7 @@ function products(req, res) {
   );
 }
 
+module.exports.uploadChangesInMongo = uploadChangesInMongo;
 module.exports.deleteItemByAdmin = deleteItemByAdmin;
 module.exports.sendImg = sendImg;
 module.exports.products = products;

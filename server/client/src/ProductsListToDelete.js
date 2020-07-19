@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { FaEdit } from "react-icons/fa";
-import { AiFillDelete } from "react-icons/ai";
+import { AiFillDelete , AiOutlineRollback } from "react-icons/ai";
 import { MdCloudUpload } from "react-icons/md";
 import ShowImg from "./ShowImg";
 import axios from "axios";
@@ -14,10 +14,33 @@ class ProductsListToDelete extends Component {
     description: this.props.tableData.description,
     size: this.props.tableData.size,
   };
+  
   editItem = (it) => {
     this.setState({ itemToEdit: it });
-    console.log(it);
+    // console.log(it);
   };
+  uploadChanges = () => {
+    let _this = this;
+    // alert(this.state.size)
+    const config = {
+      headers: { Authorization: `Bearer ${this.props.key1}` }
+  };
+    axios.post('/uploadChanges', {
+      id: this.props.tableData._id,
+      name:this.state.name,
+      price:this.state.price,
+      mkt:this.state.mkt,
+      description:this.state.description,
+      size:this.state.size
+    }, config)
+    .then(function (response) {
+      _this.setState({ itemToEdit: false });
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
   deleteItem = (it) => {
     const headers = { Authorization: `Bearer ${this.props.key1}` };
     axios
@@ -27,19 +50,28 @@ class ProductsListToDelete extends Component {
         if(res.status === 201){
 
             this.props.showItms();
-        }else{
-            alert(`הכנס שם וסיסמה כדי למחוק מוצר${res.status}`);
         }
       })
       .catch(() => {
-        
-        
+        alert(`הכנס שם וסיסמה כדי למחוק מוצר`);   
       });
   };
+  componentDidUpdate(prevProps) {
+    // Typical usage (don't forget to compare props):
+    if (this.props.tableData._id !== prevProps.tableData._id) {
+      this.setState({ itemToEdit : "" ,
+      name: this.props.tableData.name ,
+      price: this.props.tableData.price,
+      mkt: this.props.tableData.mkt,
+      description: this.props.tableData.description,
+      size: this.props.tableData.size})
+      // this.state.itemToEdit? this.setState({ itemToEdit : this.props.tableData._id }):"";
+    }
+  }
   render() {
     return (
       <tbody>
-        {this.state.itemToEdit ? (
+        {this.state.itemToEdit ===  this.props.tableData._id? (
           <tr>
             <td>
               <input
@@ -86,9 +118,19 @@ class ProductsListToDelete extends Component {
             </td>
             <td>
               <button
+                title={"עדכן"}
                 style={{ background: "none", border: "none", fontSize: "15px" }}
+                onClick={this.uploadChanges}
               >
                 <MdCloudUpload />
+              </button>
+              /
+              <button
+                title={"בטל עדכון"}
+                onClick={() => this.setState({ itemToEdit : "" })}
+                style={{ background: "none", border: "none" }}
+              >
+                <AiOutlineRollback />
               </button>
             </td>
           </tr>
@@ -104,6 +146,7 @@ class ProductsListToDelete extends Component {
             </td>
             <td>
               <button
+                title={"עריכה"}
                 onClick={() => this.editItem(this.props.tableData._id)}
                 style={{ background: "none", border: "none" }}
               >
@@ -111,6 +154,7 @@ class ProductsListToDelete extends Component {
               </button>
               /
               <button
+                title={"מחיקת מוצר"}
                 onClick={() => this.deleteItem(this.props.tableData._id)}
                 style={{ background: "none", border: "none" }}
               >
