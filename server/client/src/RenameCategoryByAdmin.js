@@ -6,43 +6,44 @@ class RenameCategoryByAdmin extends Component {
   findCategory = (category) => {
     if (category) {
       let temp = this.props.category.find((it) => it.name === category);
-      this.setState({ currentCategory: temp.ename, hebrewName: temp.name , id : temp._id});
+      this.setState({ currentCategory: temp.ename, hebrewName: temp.name ,constHebName: temp.name , id : temp._id});
     } else {
       this.setState({ currentCategory: "" });
     }
   };
   updateCategoryNameByAdmin = () => {
-    let _this = this;
-    const config = {
-      headers: { Authorization: `Bearer ${this.props.key1}` },
-    };
-    axios
-      .post(
-        "/uploadCatChanges",
-        {
-          id: this.state.id,
-          name: this.state.hebrewName,
-        },
-        config
-      )
-      .then(function (response) {
-        // _this.setState({ itemToEdit: false });
-        // _this.props.showItms();
-        _this.setState({ edit: false })
-        _this.props.getCategories();
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    if(this.state.hebrewName.length && this.state.hebrewName !== this.state.constHebName){
+      let _this = this;
+      const config = {
+        headers: { Authorization: `Bearer ${this.props.key1}` },
+      };
+      axios
+        .post(
+          "/uploadCatChanges",
+          {
+            id: this.state.id,
+            name: this.state.hebrewName,
+          },
+          config
+        )
+        .then(function (response) {
+          // _this.setState({ itemToEdit: false });
+          // _this.props.showItms();
+          _this.setState({ edit: false })
+          _this.props.getCategories();
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
 
-    console.log(this.state.hebrewName);
+    
   };
   render() {
     return (
       <div>
-        <h5>:בחר קטגוריה לשינוי</h5>
-
+        <h4>:בחר קטגוריה לשינוי</h4>
         <select
           style={{ width: "100px", marginRight: "25px" }}
           onChange={(evt) => {

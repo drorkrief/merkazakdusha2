@@ -6,7 +6,28 @@ const path = require("path");
 const mongodb = require('mongodb');
 
 
-
+function deleteCatByAdmin(req, res){
+  let parentID = {_id: new mongodb.ObjectID(req.body.id, "second")}
+    
+  MongoClient.connect(url,
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }, function(err, db) {
+      if (err) {
+        return res.sendStatus(500);
+      }
+      var dbo = db.db(my_db);
+      dbo.collection("categories").deleteOne(parentID, function(err, obj) {
+        if (err) {
+           res.sendStatus(500);
+        }
+        
+        console.log("1 document deleted");
+      });
+    });
+    res.status(201).send(req.body);
+}
 
 function deleteItemByAdmin(req, res){
 let parentID = {_id: new mongodb.ObjectID(req.body.id, "second")}
@@ -207,6 +228,7 @@ function products(req, res) {
   );
 }
 
+module.exports.deleteCatByAdmin = deleteCatByAdmin;
 module.exports.uploadCatChangesInMongo = uploadCatChangesInMongo;
 module.exports.uploadChangesInMongo = uploadChangesInMongo;
 module.exports.deleteItemByAdmin = deleteItemByAdmin;

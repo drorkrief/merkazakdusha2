@@ -66,6 +66,12 @@ app.get("/productImg/:categoryToFind", (req, res) => {
 app.delete("/deleteItemByAdmin",jwtVerifier({secret:utils.secret}), (req, res) => {
   routeHelper.deleteItemByAdmin(req, res);
 } )
+// ------ delete Cat By Admin with jwt
+app.delete("/deleteCatByAdmin",jwtVerifier({secret:utils.secret}), (req, res) => {
+  routeHelper.deleteCatByAdmin(req, res);
+  
+} )
+
 //  =====  "images" get img by name
 app.get("/images/:imgToSend", (req, res) => {  
   routeHelper.sendImg(res, req.params.imgToSend)

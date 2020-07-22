@@ -18,7 +18,7 @@ import axios from "axios";
 import Product from "./Product";
 import NotFound from "./NotFound";
 import AdminPanel from "./AdminPanel";
-
+import ScrollToTop from "./ScrollToTop";
 class App extends Component {
   
   cat = "";
@@ -111,6 +111,7 @@ reduceQuantity = item => {
     }
     return (
       <BrowserRouter>
+      <ScrollToTop />
       <div className="cartbg"></div>
       <HeaderNavBar setSecretKey={this.setSecretKey} setUser={this.setUser} categories={this.state.categories}/>
              <Switch>

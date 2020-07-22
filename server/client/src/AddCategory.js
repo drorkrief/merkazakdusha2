@@ -29,7 +29,7 @@ class AddCategory extends Component {
     render() {
         return (
             <div>
-        <h3>הוספת קטגוריה</h3>
+        <h4>הוספת קטגוריה</h4>
         {this.state.result?(
           <div className="continueProcess">
             <h2>קטגוריה: {this.state.result} נוספה בהצלחה</h2>
@@ -41,8 +41,12 @@ class AddCategory extends Component {
           </div>
         ):
         <form onSubmit={this.createCategory}>
-            בעברית<input type="text" value={this.state.he} onChange={e => {this.setState({ he: e.target.value });}} required></input><br/>
-            באנגלית<input type="text" value={this.state.en} onChange={e => {this.setState({ en: e.target.value });}} required></input><br/>
+            <input type="text" value={this.state.he} onChange={e => {this.setState({ he: e.target.value });}} required></input>&nbsp;
+             :בעברית 
+            <br/><br/>
+            <input type="text" value={this.state.en} onChange={e => {this.setState({ en: e.target.value });}} required></input>&nbsp;
+             :באנגלית 
+            <br/><br/>
             <input type="submit"></input><br/>
 
         </form>}
