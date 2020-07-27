@@ -29,8 +29,8 @@ class Feed extends Component {
           {this.state.data? this.state.data.map((it,index)=>(
           <Jumbotron className="textFeed" key={index}>
           <h1>{it.title}</h1>
-          <p>
-           {it.text}
+          <p dangerouslySetInnerHTML={{__html: it.text}}>
+          
           </p><hr/>
           <p>תאריך: {it.date}</p>
         </Jumbotron>

@@ -27,7 +27,7 @@ function sendEmailToManege(orderData) {
     service: "gmail",
     auth: {
       user: "merkazakdusha@gmail.com",
-      pass: "moshe321moyal"
+      pass: "moshe321moyal123"
     },
     tls: {
       rejectUnauthorized: false
@@ -66,6 +66,13 @@ app.get("/productImg/:categoryToFind", (req, res) => {
 app.delete("/deleteItemByAdmin",jwtVerifier({secret:utils.secret}), (req, res) => {
   routeHelper.deleteItemByAdmin(req, res);
 } )
+
+// =====  delete post by admin with jwt
+// deletePostByAdmin
+app.delete("/deletePostByAdmin",jwtVerifier({secret:utils.secret}), (req, res) => {
+  routeHelper.deletePostByAdmin(req, res);
+  // res.sendStatus(200)
+} )
 // ------ delete Cat By Admin with jwt
 app.delete("/deleteCatByAdmin",jwtVerifier({secret:utils.secret}), (req, res) => {
   routeHelper.deleteCatByAdmin(req, res);
@@ -93,6 +100,14 @@ app.post("/uploadChanges",jwtVerifier({secret:utils.secret}), (req, res) => {
 app.post("/addCategory",jwtVerifier({secret:utils.secret}), (req, res) => {
   routeHelper.addCategory(req, res);
 });
+
+// ======  add new post
+// insertNewPost
+app.post("/insertNewPost",jwtVerifier({secret:utils.secret}), (req, res) => {
+  routeHelper.insertNewPost(req, res);
+  // res.sendStatus(200)
+});
+
 //-----upload item
 app.post("/insertNewItem", upload.single("theImage"), (req, res) => {
   routeHelper.insertNewItem(req, res);

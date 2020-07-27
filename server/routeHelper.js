@@ -22,6 +22,28 @@ function deleteCatByAdmin(req, res){
         if (err) {
            res.sendStatus(500);
         }
+        console.log("1 document deleted");
+      });
+    });
+    res.status(201).send(req.body);
+}
+
+function deletePostByAdmin(req, res){
+  let parentID = {_id: new mongodb.ObjectID(req.body.id, "second")}
+    
+  MongoClient.connect(url,
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }, function(err, db) {
+      if (err) {
+        return res.sendStatus(500);
+      }
+      var dbo = db.db(my_db);
+      dbo.collection("feed").deleteOne(parentID, function(err, obj) {
+        if (err) {
+           res.sendStatus(500);
+        }
         
         console.log("1 document deleted");
       });
@@ -140,6 +162,23 @@ function uploadChangesInMongo(req, res) {
   // res.status(201).send(req.body);
 }
 
+function insertNewPost(req, res) {
+  MongoClient.connect(url, function (err, db) {
+    if (err) throw err;
+    var dbo = db.db(my_db);
+    let d = new Date().toISOString().slice(0,10);
+    // d=`${d.getDay() + 1}/${d.getMonth() + 1}/${d.getFullYear()}`;
+    var myobj = { text: req.body.text, title: req.body.title, date: d };
+    dbo.collection("feed").insertOne(myobj, function (err, res) {
+      if (err) {
+        return res.sendStatus(500);
+      }
+      console.log("1 document inserted");
+    });
+  });
+  res.status(201).send(req.body);
+}
+
 function addCategory(req, res) {
   console.log("/addCategory is accessed");
   MongoClient.connect(url, function (err, db) {
@@ -238,3 +277,5 @@ module.exports.productImg = productImg;
 module.exports.getCategories = getCategories;
 module.exports.insertNewItem = insertNewItem;
 module.exports.addCategory = addCategory;
+module.exports.insertNewPost = insertNewPost;
+module.exports.deletePostByAdmin = deletePostByAdmin;

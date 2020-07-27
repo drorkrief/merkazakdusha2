@@ -8,7 +8,9 @@ import Col from "react-bootstrap/Col";
 import AddProducts from "./AddProducts";
 import DeleteOrUpdateitem from "./DeleteOrUpdateitem";
 import DeleteCatByAdmin from "./DeleteCatByAdmin";
-import ManageOrders from "./ManageOrders"
+import NewPost from "./NewPost";
+import DeletePostByAdmin from "./DeletePostByAdmin";
+// import ManageOrders from "./ManageOrders"
 class AdminPanel extends Component {
   state = { file: "", itemName: "", currentCategory: "" };
 
@@ -21,8 +23,8 @@ class AdminPanel extends Component {
         <Tabs
           style={{ direction: "rtl" }}
           defaultActiveKey="home"
-          transition={false}
-          id="noanim-tab-example"
+          // transition={false}
+          id="admin-tabs"
         >
           <Tab eventKey="home" title="ניהול מוצרים">
             <AddProducts category={this.props.category} />
@@ -62,14 +64,16 @@ class AdminPanel extends Component {
                 key1={this.props.key1}
                category={this.props.category}
                getCategories={this.props.getCategories}/>
-          </Tab>
+           </Tab>
+          {/*
           <Tab eventKey="contact" title="ניהול הזמנות">
             <h3>הזמנות</h3>
-            <ManageOrders/>
-          </Tab>
+             <ManageOrders/> 
+          </Tab> */}
           <Tab eventKey="feed" title="ניהול פוסטים">
-            <h3>...בקרוב</h3>
-
+          <NewPost key1={this.props.key1}/>
+          <hr/>
+          <DeletePostByAdmin key1={this.props.key1}/>
           </Tab>
         </Tabs>
       </div>
