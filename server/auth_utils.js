@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const secret = process.env.NODE_ENV === "production"? process.env.ProSecret :'ys0$-@d';
+const secret = process.env.NODE_ENV === "production"? process.env.PRO_SECRET :'ys0$-@d';
 function createToken(user){
 
     const validTimeSec = 20*60; // == token expire after 20 minutes
