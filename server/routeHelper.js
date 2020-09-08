@@ -75,12 +75,7 @@ MongoClient.connect(url,
 }
 
 function sendImg(res, imgToSend){
-  // if (process.env.NODE_ENV === "production") {
-  //   uploadDirectory = "../uploads";
-  // }
-  // else{
-    uploadDirectory = "uploads";
-  // }
+      uploadDirectory = "uploads";
   const fullPathFileName = path.join(
     __dirname,
     uploadDirectory,
